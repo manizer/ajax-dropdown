@@ -1,0 +1,28 @@
+﻿@model ajax_dropdown.ViewModels.HomeViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+       <div class="col-lg-12">
+           <form name="form1" asp-controller="Home" asp-action="StudentsTableViewComponentOnSelect" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-update="#studentsTable">
+               <div class="form-group">
+                   <select asp-for="ClassId" asp-items="Model.ClassSelectListItems" class="form-control" onchange="$(this.form).submit()"></select>
+               </div>
+           </form>
+       </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Students List</h2>
+            <hr />
+            <section id="studentsTable">
+                @await Component.InvokeAsync("StudentsTable", new { classId = Model.ClassId })
+            </section>
+        </div>
+    </div>
+</div>
